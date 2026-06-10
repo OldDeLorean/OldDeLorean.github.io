@@ -119,9 +119,14 @@
     width: 150px; height: 104px; flex-shrink: 0; border-radius: 9px; border: 1px solid var(--line);
     background-color: var(--bg);
     background-image: repeating-linear-gradient(135deg, var(--line) 0 1px, transparent 1px 11px);
-    display: grid; place-items: center;
+    display: grid; place-items: center; overflow: hidden;
     font-family: var(--mono); font-size: 10px; color: var(--faint); text-transform: uppercase; letter-spacing: 0.08em;
   }
+  .pub.banner { flex-direction: column; }
+  .pub.banner .pub-thumb { width: 100%; height: auto; }
+  .pub-thumb.t-arcant { aspect-ratio: 4160 / 1463; }
+  .pub.banner .pub-thumb.t-duo { display: flex; gap: 10px; height: auto; background: var(--bg); align-items: center; justify-content: center; flex-wrap: wrap; padding: 12px; }
+  .pub.banner .pub-thumb.t-duo img { height: 200px; width: auto; max-width: 100%; object-fit: contain; }
   .pub-body { flex: 1; min-width: 0; }
   .pub-top { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; font-family: var(--mono); font-size: 11.5px; flex-wrap: wrap; }
   .pub-year { color: var(--faint); }
@@ -241,8 +246,8 @@
 
       <section id="publications">
         <div class="sec-label"><span class="sec-idx">[01]</span> Publications</div>
-        <div class="pub">
-          <div class="pub-thumb"><img src="assets/teaser_arc_ant.png" alt="Architect-Ant teaser" style="width:100%;height:100%;object-fit:cover;border-radius:9px;" onerror="this.style.display='none';this.parentNode.appendChild(document.createTextNode('teaser'));" /></div>
+        <div class="pub banner">
+          <div class="pub-thumb t-arcant"><img src="assets/teaser_arc_ant.png" alt="Architect-Ant teaser" style="width:100%;height:100%;object-fit:cover;" /></div>
           <div class="pub-body">
             <div class="pub-top"><span class="pub-year">2026</span></div>
             <div class="pub-title">Architect-Ant: Editable Automatic Furnishing of Architectural Floor Plans</div>
@@ -252,8 +257,11 @@
             </div>
           </div>
         </div>
-        <div class="pub">
-          <div class="pub-thumb">teaser</div>
+        <div class="pub banner">
+          <div class="pub-thumb t-duo">
+            <img src="assets/svgexport_living_room_0.png" alt="FloorplanQA living-room example" />
+            <img src="assets/svgexport_living_room_26.png" alt="FloorplanQA living-room example" />
+          </div>
           <div class="pub-body">
             <div class="pub-top"><span class="pub-year">2025</span><span class="badge">Accepted · ICML 2026</span></div>
             <div class="pub-title">FloorplanQA: A Benchmark for Spatial Reasoning in LLMs using Structured Representations</div>
