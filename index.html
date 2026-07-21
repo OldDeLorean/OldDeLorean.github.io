@@ -4,183 +4,504 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Fedor Rodionov — Generative AI Researcher</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: oklch(0.985 0.004 240);
-    --surface: oklch(0.965 0.006 240);
-    --fg: oklch(0.26 0.02 250);
-    --muted: oklch(0.5 0.018 245);
-    --faint: oklch(0.62 0.014 245);
-    --line: oklch(0.89 0.008 240);
-    --accent: oklch(0.52 0.14 232);
-    --accent-soft: color-mix(in oklch, var(--accent) 12%, transparent);
-    --disp: "Space Grotesk", sans-serif;
-    --sans: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
-    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+    color-scheme: light;
+    --bg: #f7f6f2;
+    --surface: #ffffff;
+    --text: #1b1b1a;
+    --muted: #66645f;
+    --quiet: #96928a;
+    --border: #dcd9d1;
+    --link: #285f91;
+    --link-soft: #eaf0f5;
+    --button: #20201f;
+    --button-text: #ffffff;
+    --sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   }
+
   [data-theme="dark"] {
-    --bg: oklch(0.185 0.016 248);
-    --surface: oklch(0.225 0.018 248);
-    --fg: oklch(0.93 0.01 240);
-    --muted: oklch(0.68 0.015 245);
-    --faint: oklch(0.52 0.016 245);
-    --line: oklch(0.31 0.018 248);
-    --accent: oklch(0.74 0.13 222);
-    --accent-soft: color-mix(in oklch, var(--accent) 16%, transparent);
+    color-scheme: dark;
+    --bg: #171716;
+    --surface: #1f1f1e;
+    --text: #eceae5;
+    --muted: #aaa79f;
+    --quiet: #77746e;
+    --border: #343431;
+    --link: #8ab6dc;
+    --link-soft: #242f38;
+    --button: #eceae5;
+    --button-text: #171716;
   }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
-    background: var(--bg); color: var(--fg);
-    font-family: var(--sans); font-size: 16px; line-height: 1.6;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
-    transition: background 0.25s ease, color 0.25s ease;
+    text-rendering: optimizeLegibility;
+    transition: background 0.2s ease, color 0.2s ease;
   }
+
   a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; }
 
-  .layout { display: flex; gap: 60px; max-width: 1100px; margin: 0 auto; padding: 0 40px; align-items: flex-start; }
+  .layout {
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 72px;
+    width: min(1080px, calc(100% - 64px));
+    margin: 0 auto;
+    align-items: start;
+  }
 
-  /* ===== SIDEBAR ===== */
+  /* Sidebar */
   .sidebar {
-    width: 290px; flex-shrink: 0;
-    position: sticky; top: 0;
-    height: 100vh; overflow-y: auto;
-    padding: 34px 0 28px;
-    scrollbar-width: none;
+    position: sticky;
+    top: 0;
+    min-height: 100vh;
+    padding: 48px 0 40px;
   }
-  .sidebar::-webkit-scrollbar { display: none; }
+
   .portrait {
-    width: 150px; height: 188px; border-radius: 14px;
-    object-fit: cover; object-position: center 18%;
-    border: 1px solid var(--line);
     display: block;
+    width: 132px;
+    height: 166px;
+    object-fit: cover;
+    object-position: center 18%;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--surface);
   }
-  .s-name { font-family: var(--disp); font-size: 29px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-top: 20px; }
-  .s-tag { font-family: var(--mono); font-size: 12.5px; color: var(--accent); margin-top: 9px; line-height: 1.5; }
-  .s-bio { font-size: 14.5px; line-height: 1.62; color: var(--muted); margin-top: 18px; }
-  .s-bio strong { color: var(--fg); font-weight: 600; }
-  .s-bio + .s-bio { margin-top: 11px; }
+
+  .s-name {
+    margin-top: 22px;
+    font-size: 28px;
+    font-weight: 720;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+  }
+
+  .s-tag {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .s-bio {
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .s-bio strong { color: var(--text); font-weight: 650; }
+  .s-bio + .s-bio { margin-top: 10px; }
+
+  .status {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 16px;
+    color: var(--muted);
+    font-size: 12.5px;
+    line-height: 1.45;
+  }
+
+  .status .dot {
+    width: 6px;
+    height: 6px;
+    margin-top: 6px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: #4c956c;
+  }
 
   .cv-btn {
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    margin-top: 22px; padding: 11px 16px; border-radius: 9px;
-    background: var(--accent); color: oklch(0.99 0.01 240);
-    font-family: var(--mono); font-size: 13px; font-weight: 500;
-    transition: filter 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 22px;
+    padding: 9px 13px;
+    border-radius: 5px;
+    background: var(--button);
+    color: var(--button-text);
+    font-size: 13px;
+    font-weight: 650;
+    transition: transform 0.15s ease, opacity 0.15s ease;
   }
-  [data-theme="dark"] .cv-btn { color: oklch(0.16 0.02 248); }
-  .cv-btn:hover { filter: brightness(1.07); }
-  .cv-btn svg { width: 15px; height: 15px; }
 
-  .s-links { display: flex; gap: 8px; margin-top: 12px; }
-  .s-links a {
-    flex: 1; height: 40px; border: 1px solid var(--line); border-radius: 9px;
-    display: grid; place-items: center; color: var(--muted); background: var(--surface);
-    transition: color 0.15s, border-color 0.15s, background 0.15s;
+  .cv-btn:hover { transform: translateY(-1px); opacity: 0.9; }
+  .cv-btn svg { width: 14px; height: 14px; }
+
+  .s-links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 18px;
   }
-  .s-links a:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+
+  .s-links a {
+    display: grid;
+    width: 22px;
+    height: 22px;
+    place-items: center;
+    color: var(--muted);
+    transition: color 0.15s ease, transform 0.15s ease;
+  }
+
+  .s-links a:hover { color: var(--link); transform: translateY(-1px); }
   .s-links svg { width: 18px; height: 18px; }
 
-  .s-nav { margin-top: 24px; display: flex; flex-direction: column; gap: 2px; border-top: 1px solid var(--line); padding-top: 18px; }
-  .s-nav a { font-family: var(--mono); font-size: 12.5px; color: var(--faint); padding: 5px 0; display: flex; align-items: center; gap: 9px; transition: color 0.15s; }
-  .s-nav a::before { content: ""; width: 14px; height: 1px; background: var(--line); transition: background 0.15s, width 0.15s; }
-  .s-nav a:hover, .s-nav a.active { color: var(--accent); }
-  .s-nav a.active::before { background: var(--accent); width: 22px; }
+  .s-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    margin-top: 34px;
+  }
 
-  .theme-row { margin-top: 18px; }
-  .toggle { width: 100%; height: 38px; border-radius: 9px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 9px; font-family: var(--mono); font-size: 12px; transition: color 0.15s, border-color 0.15s; }
-  .toggle:hover { color: var(--accent); border-color: var(--accent); }
+  .s-nav a {
+    padding: 2px 0;
+    color: var(--quiet);
+    font-size: 13px;
+    transition: color 0.15s ease;
+  }
+
+  .s-nav a:hover,
+  .s-nav a.active { color: var(--text); }
+  .s-nav a.active { font-weight: 650; }
+  .s-nav a::before { content: none; }
+
+  .theme-row { margin-top: 28px; }
+
+  .toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--quiet);
+    font: inherit;
+    font-size: 12.5px;
+    cursor: pointer;
+    transition: color 0.15s ease;
+  }
+
+  .toggle:hover { color: var(--text); }
   .toggle svg { width: 14px; height: 14px; }
 
-  /* ===== CONTENT ===== */
-  .content { flex: 1; min-width: 0; padding: 40px 0 90px; }
-  .content section[id] { scroll-margin-top: 28px; }
-  .tail-spacer { height: 72vh; }
-  .intro { padding-bottom: 46px; }
-  .intro .lead { font-size: 19px; line-height: 1.6; letter-spacing: -0.005em; }
-  .intro .lead strong { font-weight: 600; }
-  .intro .lead-sub { font-size: 15px; line-height: 1.6; color: var(--muted); margin-top: 14px; }
-  section { padding-bottom: 52px; }
-  section:last-child { padding-bottom: 0; }
-  .sec-label {
-    font-family: var(--mono); font-size: 12px; letter-spacing: 0.05em; color: var(--accent);
-    display: flex; align-items: center; gap: 14px; margin-bottom: 26px; text-transform: uppercase;
+  /* Main content */
+  .content {
+    min-width: 0;
+    padding: 52px 0 110px;
   }
-  .sec-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
-  .sec-idx { color: var(--faint); }
 
-  /* PUBLICATIONS */
-  .pub { display: flex; gap: 22px; padding: 22px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); margin-bottom: 16px; transition: border-color 0.15s; }
-  .pub:hover { border-color: var(--accent); }
-  .pub-thumb {
-    width: 150px; height: 104px; flex-shrink: 0; border-radius: 9px; border: 1px solid var(--line);
-    background-color: var(--bg);
-    background-image: repeating-linear-gradient(135deg, var(--line) 0 1px, transparent 1px 11px);
-    display: grid; place-items: center; overflow: hidden;
-    font-family: var(--mono); font-size: 10px; color: var(--faint); text-transform: uppercase; letter-spacing: 0.08em;
+  .content section[id] { scroll-margin-top: 34px; }
+  .tail-spacer { height: 30vh; }
+
+  .intro {
+    max-width: 700px;
+    padding-bottom: 68px;
   }
-  .pub.banner { flex-direction: column; }
+
+  .intro .lead {
+    font-size: clamp(20px, 2.1vw, 24px);
+    line-height: 1.5;
+    letter-spacing: -0.018em;
+  }
+
+  .intro .lead strong { font-weight: 700; }
+
+  .intro .lead-sub {
+    max-width: 620px;
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  section { padding-bottom: 70px; }
+  section:last-child { padding-bottom: 0; }
+
+  .sec-label {
+    display: block;
+    margin-bottom: 24px;
+    padding-bottom: 11px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    text-transform: none;
+  }
+
+  .sec-label::after { content: none; }
+  .sec-idx { display: none; }
+
+  /* Publications */
+  .pub {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 30px;
+    padding: 0 0 30px;
+    border: 0;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .pub:last-child { margin-bottom: 0; }
+  .pub:hover { border-color: var(--border); }
+
+  .pub-thumb {
+    display: grid;
+    width: 160px;
+    height: 108px;
+    flex: 0 0 auto;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: var(--surface);
+    color: var(--quiet);
+    font-size: 11px;
+  }
+
+  .pub.banner { flex-direction: column; gap: 18px; }
   .pub.banner .pub-thumb { width: 100%; height: auto; }
   .pub-thumb.t-arcant { aspect-ratio: 4160 / 1463; }
-  .pub.banner .pub-thumb.t-duo { display: flex; gap: 10px; height: auto; background: var(--bg); align-items: center; justify-content: center; flex-wrap: wrap; padding: 12px; }
-  .pub.banner .pub-thumb.t-duo img { height: 200px; width: auto; max-width: 100%; object-fit: contain; }
+
+  .pub.banner .pub-thumb.t-duo {
+    display: flex;
+    min-height: 230px;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 16px;
+    background: var(--surface);
+    flex-wrap: wrap;
+  }
+
+  .pub.banner .pub-thumb.t-duo img {
+    width: auto;
+    max-width: 100%;
+    height: 190px;
+    object-fit: contain;
+  }
+
   .pub-body { flex: 1; min-width: 0; }
-  .pub-top { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; font-family: var(--mono); font-size: 11.5px; flex-wrap: wrap; }
-  .pub-year { color: var(--faint); }
-  .badge { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.03em; font-weight: 500; padding: 3px 9px; border-radius: 5px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
-  .badge.soon { background: transparent; color: var(--faint); border: 1px solid var(--line); }
-  .pub-title { font-family: var(--disp); font-size: 18px; font-weight: 500; line-height: 1.36; letter-spacing: -0.01em; }
-  .pub-venue { font-family: var(--mono); color: var(--muted); font-size: 12px; margin-top: 8px; }
-  .pub-links { display: flex; gap: 14px; margin-top: 12px; flex-wrap: wrap; }
-  .pub-links a { font-family: var(--mono); font-size: 12.5px; color: var(--accent); white-space: nowrap; }
-  .pub-links a:hover { text-decoration: underline; }
-  .pub-links span { font-family: var(--mono); font-size: 12.5px; color: var(--faint); white-space: nowrap; }
 
-  /* PROJECTS */
-  .proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .proj { border: 1px solid var(--line); border-radius: 12px; padding: 20px; background: var(--surface); transition: border-color 0.15s; display: flex; flex-direction: column; }
-  .proj:hover { border-color: var(--accent); }
-  .proj-tag { font-family: var(--mono); font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.04em; }
-  .proj-name { font-family: var(--disp); font-size: 18px; font-weight: 600; margin-top: 9px; }
-  .proj-desc { color: var(--muted); font-size: 13.5px; margin-top: 9px; line-height: 1.55; flex: 1; }
-  .proj-arrow { font-family: var(--mono); font-size: 12px; color: var(--faint); margin-top: 14px; }
-  .proj:hover .proj-arrow { color: var(--accent); }
+  .pub-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 7px;
+    color: var(--quiet);
+    font-size: 12px;
+    flex-wrap: wrap;
+  }
 
-  /* ROWS */
-  .row { display: grid; grid-template-columns: 150px 1fr; gap: 22px; padding: 18px 0; border-top: 1px solid var(--line); }
-  .grid-list .row:first-child { border-top: none; padding-top: 0; }
-  .row-date { font-family: var(--mono); font-size: 12px; color: var(--faint); padding-top: 3px; }
-  .row-title { font-family: var(--disp); font-size: 16.5px; font-weight: 500; }
-  .row-org { font-family: var(--mono); color: var(--accent); font-size: 12.5px; margin-top: 3px; }
-  .row-note { color: var(--muted); font-size: 14px; margin-top: 9px; line-height: 1.6; }
-  .row-note ul { list-style: none; }
-  .row-note li { position: relative; padding-left: 18px; margin-top: 5px; }
-  .row-note li::before { content: "›"; position: absolute; left: 2px; color: var(--accent); }
-  .gpa { font-family: var(--mono); color: var(--faint); font-size: 12px; }
-  .news-text { font-size: 14.5px; line-height: 1.55; }
-  .news-text strong { color: var(--accent); font-weight: 500; }
-  .status { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; font-family: var(--mono); font-size: 11px; color: var(--muted); }
-  .status .dot { width: 7px; height: 7px; border-radius: 50%; background: oklch(0.68 0.17 150); box-shadow: 0 0 0 3px color-mix(in oklch, oklch(0.68 0.17 150) 22%, transparent); }
+  .pub-year { color: var(--quiet); }
 
-  /* SKILLS */
-  .skill-block { display: grid; grid-template-columns: 150px 1fr; gap: 22px; padding: 16px 0; border-top: 1px solid var(--line); }
-  .grid-list .skill-block:first-child { border-top: none; padding-top: 0; }
-  .skill-label { font-family: var(--mono); font-size: 12px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.04em; padding-top: 4px; }
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip { font-family: var(--mono); font-size: 12.5px; padding: 6px 11px; border-radius: 6px; background: var(--surface); border: 1px solid var(--line); }
+  .badge {
+    padding: 2px 7px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: transparent;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .badge.soon { color: var(--quiet); }
+
+  .pub-title {
+    max-width: 680px;
+    font-size: 20px;
+    font-weight: 680;
+    line-height: 1.42;
+    letter-spacing: -0.018em;
+  }
+
+  .pub-venue {
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .pub-links {
+    display: flex;
+    gap: 18px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+
+  .pub-links a,
+  .pub-links span {
+    color: var(--link);
+    font-size: 13px;
+  }
+
+  .pub-links a { text-decoration: underline; text-underline-offset: 3px; }
+  .pub-links a:hover { text-decoration-thickness: 2px; }
+  .pub-links span { color: var(--quiet); }
+
+  /* Projects */
+  .proj-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+
+  .proj {
+    display: flex;
+    min-height: 150px;
+    flex-direction: column;
+    padding: 16px 0 0;
+    border: 0;
+    border-top: 1px solid var(--border);
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .proj:hover { border-color: var(--text); }
+
+  .proj-tag {
+    color: var(--quiet);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .proj-name {
+    margin-top: 8px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+
+  .proj-desc {
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.55;
+    flex: 1;
+  }
+
+  .proj-arrow {
+    margin-top: 14px;
+    color: var(--link);
+    font-size: 13px;
+  }
+
+  .proj:hover .proj-arrow { text-decoration: underline; text-underline-offset: 3px; }
+
+  /* Timeline rows */
+  .row {
+    display: grid;
+    grid-template-columns: 136px minmax(0, 1fr);
+    gap: 24px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .grid-list .row:first-child { padding-top: 0; border-top: 0; }
+
+  .row-date {
+    padding-top: 3px;
+    color: var(--quiet);
+    font-size: 11.5px;
+    letter-spacing: 0.035em;
+  }
+
+  .row-title {
+    font-size: 16.5px;
+    font-weight: 680;
+    line-height: 1.45;
+    letter-spacing: -0.008em;
+  }
+
+  .row-org {
+    margin-top: 2px;
+    color: var(--link);
+    font-size: 13px;
+  }
+
+  .row-note {
+    margin-top: 9px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .row-note ul { padding-left: 18px; }
+  .row-note li { margin-top: 5px; padding-left: 2px; }
+  .row-note li::marker { color: var(--quiet); }
+  .row-note li::before { content: none; }
+
+  .gpa {
+    color: var(--quiet);
+    font-size: 12.5px;
+  }
+
+  .news-text { font-size: 15px; line-height: 1.55; }
+  .news-text strong { color: var(--text); font-weight: 680; }
+
+  /* Skills, retained for future use */
+  .skill-block {
+    display: grid;
+    grid-template-columns: 136px minmax(0, 1fr);
+    gap: 24px;
+    padding: 18px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .grid-list .skill-block:first-child { padding-top: 0; border-top: 0; }
+  .skill-label { color: var(--quiet); font-size: 12px; padding-top: 4px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px 12px; }
+  .chip { color: var(--muted); font-size: 13px; }
 
   @media (max-width: 860px) {
-    .layout { flex-direction: column; gap: 0; padding: 0 28px; }
-    .sidebar { position: static; width: 100%; height: auto; max-height: none; overflow: visible; padding: 44px 0 28px; border-bottom: 1px solid var(--line); }
+    .layout {
+      display: block;
+      width: min(100% - 40px, 720px);
+    }
+
+    .sidebar {
+      position: static;
+      min-height: auto;
+      padding: 34px 0 30px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .portrait { width: 112px; height: 140px; }
+    .s-name { font-size: 26px; }
     .s-nav { display: none; }
-    .content { padding-top: 40px; width: 100%; }
-    .proj-grid { grid-template-columns: 1fr; }
-    .pub { flex-direction: column; gap: 16px; }
-    .pub-thumb { width: 100%; height: 120px; }
-    .row, .skill-block { grid-template-columns: 1fr; gap: 5px; }
+    .theme-row { margin-top: 20px; }
+    .content { padding: 38px 0 80px; }
+    .intro { padding-bottom: 56px; }
+    section { padding-bottom: 58px; }
+    .proj-grid { grid-template-columns: 1fr; gap: 22px; }
+    .tail-spacer { display: none; }
+  }
+
+  @media (max-width: 560px) {
+    .layout { width: min(100% - 32px, 720px); }
+    .intro .lead { font-size: 20px; }
+    .pub.banner .pub-thumb.t-duo { min-height: 0; }
+    .pub.banner .pub-thumb.t-duo img { height: auto; max-height: 170px; }
+    .row,
+    .skill-block { grid-template-columns: 1fr; gap: 5px; }
+    .row-date { padding-top: 0; }
+    .proj { min-height: 0; }
   }
 </style>
 </head>
@@ -207,7 +528,7 @@
         <a href="https://github.com/OldDelorean" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05A9.4 9.4 0 0112 6.84c.85 0 1.71.12 2.51.34 1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.02 10.02 0 0022 12.25C22 6.58 17.52 2 12 2z"/></svg>
         </a>
-        <a href="https://www.linkedin.com/in/fedor-rodionov-b45aa41b7/" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
+        <a href="https://www.linkedin.com/in/olddelorean" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14zM8.34 17V10.4H6.16V17h2.18zM7.25 9.5a1.27 1.27 0 100-2.54 1.27 1.27 0 000 2.54zM18 17v-3.62c0-1.93-.41-3.42-2.67-3.42-1.08 0-1.81.6-2.11 1.16h-.03V10.4h-2.09V17h2.18v-3.26c0-.86.16-1.69 1.23-1.69 1.05 0 1.07.98 1.07 1.75V17H18z"/></svg>
         </a>
       </div>
@@ -230,8 +551,8 @@
     <!-- ===== CONTENT ===== -->
     <main class="content">
       <section id="intro" class="intro">
-        <p class="lead">I'm a PhD student at KAUST, advised by <strong>Prof. Peter Wonka</strong>. My research is in <strong>generative AI</strong> and <strong>computer vision</strong> — working on spatial reasoning and geometry processing in vision-language models.</p>
-        <p class="lead-sub">Before that, four years in industry — R&amp;D at Huawei, plus large-scale data systems at X5 and Yandex.</p>
+        <p class="lead">I'm a PhD student in Generative AI at KAUST, advised by <strong>Prof. Peter Wonka</strong>. My research spans <strong>generative AI</strong>, <strong>computer vision</strong>, and <strong>geometric reasoning</strong>.</p>
+        <p class="lead-sub">Before my PhD, I spent four years in industrial R&amp;D — numerical optimization at Huawei, and large-scale machine learning systems and high-performance C++ software at X5 and Yandex.</p>
       </section>
 
       <section id="news">
@@ -239,7 +560,7 @@
         <div class="grid-list">
           <div class="row">
             <div class="row-date">2026</div>
-            <div><div class="news-text">I'll attend <strong>ICML 2026</strong> in Seoul to present our paper.</div></div>
+            <div><div class="news-text">Our paper <strong>FloorplanQA</strong> was accepted to <strong>ICML 2026</strong>.</div></div>
           </div>
         </div>
       </section>
@@ -249,11 +570,11 @@
         <div class="pub banner">
           <div class="pub-thumb t-arcant"><img src="assets/teaser_arc_ant.png" alt="Architect-Ant teaser" style="width:100%;height:100%;object-fit:cover;" /></div>
           <div class="pub-body">
-            <div class="pub-top"><span class="pub-year">2026</span></div>
-            <div class="pub-title">Architect-Ant: Editable Automatic Furnishing of Architectural Floor Plans</div>
+            <div class="pub-top"><span class="pub-year">2026</span><span class="badge soon">Preprint</span></div>
+            <div class="pub-title">Architect-Ant: Editable Automatic Furnishing of Architectural Floorplans</div>
             <div class="pub-venue">arXiv:2606.10953</div>
             <div class="pub-links">
-              <a href="https://arxiv.org/abs/2606.10953" target="_blank" rel="noopener">[ arXiv ]</a>
+              <a href="https://arxiv.org/abs/2606.10953" target="_blank" rel="noopener">arXiv ↗</a>
             </div>
           </div>
         </div>
@@ -267,8 +588,8 @@
             <div class="pub-title">FloorplanQA: A Benchmark for Spatial Reasoning in LLMs using Structured Representations</div>
             <div class="pub-venue">arXiv:2507.07644</div>
             <div class="pub-links">
-              <a href="https://olddelorean.github.io/FloorplanQA/" target="_blank" rel="noopener">[ project page ]</a>
-              <a href="https://arxiv.org/abs/2507.07644" target="_blank" rel="noopener">[ arXiv ]</a>
+              <a href="https://olddelorean.github.io/FloorplanQA/" target="_blank" rel="noopener">Project page ↗</a>
+              <a href="https://arxiv.org/abs/2507.07644" target="_blank" rel="noopener">arXiv ↗</a>
             </div>
           </div>
         </div>
@@ -279,14 +600,14 @@
         <div class="proj-grid">
           <a class="proj" href="https://github.com/NeuralDeepWorks/deepworks" target="_blank" rel="noopener">
             <div class="proj-tag">c++ / framework</div>
-            <div class="proj-name">Deepworks</div>
-            <div class="proj-desc">Open-source C++ framework for efficient neural-network training and inference.</div>
+            <div class="proj-name">deepworks</div>
+            <div class="proj-desc">Open-source C++ framework for neural-network training and inference.</div>
             <div class="proj-arrow">open ↗</div>
           </a>
           <a class="proj" href="https://github.com/RodionovF/Nizhny_Novgorod_3d_map" target="_blank" rel="noopener">
             <div class="proj-tag">geometry / viz</div>
             <div class="proj-name">3D City Map</div>
-            <div class="proj-desc">3D visualization of urban building data built with Kepler.gl and GeoPandas.</div>
+            <div class="proj-desc">Large-scale 3D visualization pipeline for urban building data, built with Kepler.gl and GeoPandas.</div>
             <div class="proj-arrow">open ↗</div>
           </a>
         </div>
@@ -315,7 +636,7 @@
             <div class="row-date">2015 — 2021</div>
             <div>
               <div class="row-title">B.Sc. (2019) &amp; M.Sc. (2021), Computer Science</div>
-              <div class="row-org">Lobachevsky State University of Nizhny Novgorod</div>
+              <div class="row-org">Lobachevsky State University of Nizhny Novgorod (UNN)</div>
               <div class="row-note"><span class="gpa">GPA 5.00 / 5.00</span></div>
             </div>
           </div>
@@ -331,8 +652,8 @@
               <div class="row-title">R&amp;D Developer</div>
               <div class="row-org">Huawei R&amp;D</div>
               <div class="row-note"><ul>
-                <li>Built advanced features for second-order numerical optimization solvers (FSQP, IpOpt) for complex applied problems.</li>
-                <li>Researched constrained non-convex optimization, adding warm-restart and L-BFGS capabilities.</li>
+                <li>Developed advanced features for second-order optimization solvers (FSQP, IPOPT) for constrained nonlinear optimization problems.</li>
+                <li>Implemented and evaluated modern constrained optimization techniques, including warm-start strategies and L-BFGS approximations.</li>
               </ul></div>
             </div>
           </div>
@@ -342,19 +663,8 @@
               <div class="row-title">Data Analyst</div>
               <div class="row-org">X5 Retail Group</div>
               <div class="row-note"><ul>
-                <li>Built the “A/B Helper” Python package automating data collection, parameter selection, and prediction.</li>
-                <li>Developed high-performance analytics dashboards with PySpark, Airflow, and ClickHouse.</li>
-              </ul></div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="row-date">JUN 2020 — FEB 2021</div>
-            <div>
-              <div class="row-title">Data Analyst</div>
-              <div class="row-org">Gorky.AI</div>
-              <div class="row-note"><ul>
-                <li>Built a GNN/NLP text-clustering app — 2nd place at the Moscow Mayor Hackathon.</li>
-                <li>Visualized urban geospatial data (infrastructure polygons) with Kepler.gl.</li>
+                <li>Developed “A/B Helper”, a Python package automating experiment design, parameter selection, and data collection for A/B testing.</li>
+                <li>Built scalable analytics pipelines and dashboards using PySpark, Airflow, and ClickHouse for large-scale retail data.</li>
               </ul></div>
             </div>
           </div>
@@ -364,8 +674,8 @@
               <div class="row-title">Software Engineer Intern</div>
               <div class="row-org">Yandex · Maps &amp; Navigator</div>
               <div class="row-note"><ul>
-                <li>Optimized a C++ / Boost.Python road-graph pipeline, making calculation 6× faster.</li>
-                <li>Shipped features and hotfixes across the iOS and Android apps.</li>
+                <li>Optimized a C++ / Boost.Python road-graph processing pipeline, reducing computation time by 6×.</li>
+                <li>Developed production features and bug fixes for Yandex Maps &amp; Navigator on iOS and Android, enhancing UX.</li>
               </ul></div>
             </div>
           </div>
@@ -385,7 +695,7 @@
           <div class="row">
             <div class="row-date">2023 — 2024</div>
             <div>
-              <div class="row-title">Teaching Assistant — Python and Data Analysis</div>
+              <div class="row-title">Teaching Assistant — Python and Data Analysis for ML</div>
               <div class="row-org">HSE University</div>
             </div>
           </div>
@@ -399,7 +709,7 @@
             <div class="row-date">2026</div>
             <div>
               <div class="row-title">Reviewer</div>
-              <div class="row-org">ECCV 2026</div>
+              <div class="row-org">ECCV &amp; NeurIPS</div>
             </div>
           </div>
         </div>
